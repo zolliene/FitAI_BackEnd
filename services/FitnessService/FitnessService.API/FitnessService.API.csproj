@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FitnessService.Service\FitnessService.Service.csproj" />
+    <ProjectReference Include="..\..\..\BuidingBlocks.Common\BuidingBlocks.Common.csproj" />
   </ItemGroup>
 
 </Project>

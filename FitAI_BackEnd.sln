@@ -9,14 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "gateway", "gateway", "{8266
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "building-blocks", "building-blocks", "{2749D024-BB0E-4393-89C4-223A53ECC908}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{A71684C1-A63A-4DBF-B4CD-C3FC773B6EF9}"
-	ProjectSection(SolutionItems) = preProject
-		ApiResponse.cs = ApiResponse.cs
-		DomainException.cs = DomainException.cs
-		ErrorCodes.cs = ErrorCodes.cs
-		ExceptionHandlingMiddleware.cs = ExceptionHandlingMiddleware.cs
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "contracts", "contracts", "{27AC389F-3102-46FD-BC32-94C1295F5DAD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AccountService", "AccountService", "{9893F120-EBC1-46B9-B8EC-BB61397EBD78}"
@@ -38,6 +30,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AccountService.Service", "services\AccountService\AccountService.Service\AccountService.Service.csproj", "{B975FD9F-B06E-5217-7882-2E424DD94A06}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway.API", "gateway\Gateway.API\Gateway.API.csproj", "{45FF5A82-1E95-9DBF-4A6B-852FC6674608}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuidingBlocks.Common", "BuidingBlocks.Common\BuidingBlocks.Common.csproj", "{8F254D8C-0B49-417D-88BE-994AC40AA7AC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,12 +67,15 @@ Global
 		{45FF5A82-1E95-9DBF-4A6B-852FC6674608}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45FF5A82-1E95-9DBF-4A6B-852FC6674608}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45FF5A82-1E95-9DBF-4A6B-852FC6674608}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F254D8C-0B49-417D-88BE-994AC40AA7AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F254D8C-0B49-417D-88BE-994AC40AA7AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F254D8C-0B49-417D-88BE-994AC40AA7AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F254D8C-0B49-417D-88BE-994AC40AA7AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{A71684C1-A63A-4DBF-B4CD-C3FC773B6EF9} = {2749D024-BB0E-4393-89C4-223A53ECC908}
 		{27AC389F-3102-46FD-BC32-94C1295F5DAD} = {2749D024-BB0E-4393-89C4-223A53ECC908}
 		{9893F120-EBC1-46B9-B8EC-BB61397EBD78} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{F5FF224D-E32C-4C82-BB44-F934C6513F7D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
@@ -90,6 +87,7 @@ Global
 		{54F1042E-E20B-FB5B-66DF-C893FF29044E} = {9893F120-EBC1-46B9-B8EC-BB61397EBD78}
 		{B975FD9F-B06E-5217-7882-2E424DD94A06} = {9893F120-EBC1-46B9-B8EC-BB61397EBD78}
 		{45FF5A82-1E95-9DBF-4A6B-852FC6674608} = {8266BB71-D025-4572-87C1-054A959ED6FE}
+		{8F254D8C-0B49-417D-88BE-994AC40AA7AC} = {2749D024-BB0E-4393-89C4-223A53ECC908}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B270E443-9EBC-419A-870D-19EF66706294}
