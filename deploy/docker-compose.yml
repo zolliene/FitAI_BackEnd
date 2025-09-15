@@ -11,6 +11,10 @@ services:
       - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - MongoDbSettings__ConnectionString=${MONGO_CONNECTION_STRING}
       - MongoDbSettings__DatabaseName=${MONGO_DATABASE_NAME}
+      - JwtSettings__Secret=${JWT_SECRET}
+      - JwtSettings__Issuer=${JWT_ISSUER}
+      - JwtSettings__Audience=${JWT_AUDIENCE}
+      - JwtSettings__DurationInMinutes=${JWT_DURATION_IN_MINUTES}
     ports:
       - "8081:8081"
     networks:
@@ -23,8 +27,7 @@ services:
     container_name: gateway
     environment:
       - ASPNETCORE_URLS=http://+:8080
-      - ASPNETCORE_ENVIRONMENT=Development
-      # Ghi đè cấu hình để trỏ đến tên container, không cần sửa appsettings.json
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
       - ReverseProxy__Clusters__account__Destinations__d1__Address=http://accountservice:8081/
     ports:
       - "8080:8080"
