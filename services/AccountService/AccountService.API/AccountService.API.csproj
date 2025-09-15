@@ -4,16 +4,21 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>faef9e87-e3a1-4c09-9ffc-6f93e0b27157</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerfileContext>..\..\..</DockerfileContext>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="FirebaseAdmin" Version="3.4.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.22.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\building-blocks\BuildingBlocks.Common\BuildingBlocks.Common.csproj" />
     <ProjectReference Include="..\AccountService.Repository\AccountService.Repository.csproj" />
+    <ProjectReference Include="..\AccountService.Service\AccountService.Service.csproj" />
   </ItemGroup>
 
 </Project>

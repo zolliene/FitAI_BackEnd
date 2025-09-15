@@ -1,7 +1,9 @@
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
+using AccountService.Repository;
+using AccountService.Service;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,7 +13,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddScoped<UserRepository>();
+builder.Services.AddScoped<UserService>();
 FirebaseApp.Create(new AppOptions
 {
     Credential = GoogleCredential.FromFile("Secrets/firebase-adminsdk.json")
