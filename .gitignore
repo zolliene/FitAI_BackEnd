@@ -9,10 +9,18 @@
 *.user
 *.userosscache
 *.sln.docstates
-
+**/appsettings.Development.json
+# Environment files
+.env
+deploy/.env
+*/.env
+.env.local
+.env.development
+.env.test
+.env.production
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
-
+**/appsettings.Development.json
 # Mono auto generated files
 mono_crash.*
 

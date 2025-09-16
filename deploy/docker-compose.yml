@@ -1,0 +1,41 @@
+version: "3.9"
+
+services:
+  accountservice:
+    build:
+      context: ../
+      dockerfile: services/AccountService/AccountService.API/Dockerfile
+    container_name: accountservice
+    environment:
+      - ASPNETCORE_URLS=http://+:8081
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - MongoDbSettings__ConnectionString=${MONGO_CONNECTION_STRING}
+      - MongoDbSettings__DatabaseName=${MONGO_DATABASE_NAME}
+      - JwtSettings__Secret=${JWT_SECRET}
+      - JwtSettings__Issuer=${JWT_ISSUER}
+      - JwtSettings__Audience=${JWT_AUDIENCE}
+      - JwtSettings__DurationInMinutes=${JWT_DURATION_IN_MINUTES}
+    ports:
+      - "8081:8081"
+    networks:
+      - fitai-network
+
+  gateway:
+    build:
+      context: ../
+      dockerfile: gateway/Gateway.API/Dockerfile
+    container_name: gateway
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
+      - ASPNETCORE_ENVIRONMENT=${ASPNETCORE_ENVIRONMENT}
+      - ReverseProxy__Clusters__account__Destinations__d1__Address=http://accountservice:8081/
+    ports:
+      - "8080:8080"
+    networks:
+      - fitai-network
+    depends_on:
+      - accountservice
+
+networks:
+  fitai-network:
+    driver: bridge
