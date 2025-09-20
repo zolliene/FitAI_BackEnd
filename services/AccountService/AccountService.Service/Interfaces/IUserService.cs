@@ -1,5 +1,6 @@
 ﻿using AccountService.Repository.Models;
 using AccountService.Service.DTO.Auth;
+using AccountService.Service.DTO.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,8 @@ namespace AccountService.Service.Interfaces
     {
         Task<List<User>> GetAllAsync();
         Task<User> GetByEmailAsync(string email);
+        Task<User> UpdateProfileAsync(string userId, UpdateProfileRequest request);
+        Task<User> GetByIdAsync(string id);
+        Task<bool> DeleteUserAsync(string id);
     }
 }

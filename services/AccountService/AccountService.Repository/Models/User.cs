@@ -31,6 +31,8 @@ namespace AccountService.Repository.Models
         // Gmail sign-in support
         public string? GoogleAccessToken { get; set; }
         public string? GoogleRefreshToken { get; set; }
+        public string Goal { get; set; }
+        public bool IsActive { get; set; } = true;
     }
 
     public enum Gender

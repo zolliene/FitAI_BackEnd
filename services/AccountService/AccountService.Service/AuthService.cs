@@ -57,7 +57,7 @@ namespace AccountService.Service
         public async Task<AuthLoginResponse> LoginAdminAsync(string email, string password)
         {
             // var admin = await _adminRepo.GetByEmailAsync(email);
-            var admin = await _repo.GetByEmailAsync(email);
+            var admin = await _adminRepo.GetByEmailAsync(email);
             if (admin == null || !BCrypt.Net.BCrypt.Verify(password, admin.Password))
                 throw new Exception("Invalid email or password");
 

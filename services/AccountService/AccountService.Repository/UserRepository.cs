@@ -23,10 +23,15 @@ namespace AccountService.Repository
             await _users.InsertOneAsync(user);
             return user;
         }
-
+        public async Task<bool> SoftDeleteAsync(string id)
+        {
+            var update = Builders<User>.Update.Set(u => u.IsActive, false);
+            var result = await _users.UpdateOneAsync(u => u.Id == id, update);
+            return result.ModifiedCount > 0;
+        }
         public async Task<User?> GetByEmailAsync(string email)
         {
-            return await _users.Find(u => u.Email == email).FirstOrDefaultAsync();
+            return await _users.Find(u => u.Email == email && u.IsActive).FirstOrDefaultAsync();
         }
         public async Task<List<User>> GetAllAsync()
         {
@@ -36,6 +41,10 @@ namespace AccountService.Repository
         public async Task UpdateAsync(User user)
         {
             await _users.ReplaceOneAsync(u => u.Id == user.Id, user);
+        }
+        public async Task<User> GetByIdAsync(string id)
+        {
+            return await _users.Find(u => u.Id == id && u.IsActive).FirstOrDefaultAsync();
         }
     }
 }

@@ -43,6 +43,9 @@ builder.Services.AddSwaggerGen(c =>
               }
           }, Array.Empty<string>() }
     });
+    var xmlFile = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
 });
 
 // 2) JWT (đừng chặn swagger.json)
@@ -57,7 +60,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
             ValidAudience = builder.Configuration["JwtSettings:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Secret"]))
+                Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Secret"])),
+            RoleClaimType = ClaimTypes.Role   
         };
     });
 
@@ -68,6 +72,7 @@ builder.Services.AddScoped<AdminRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 FirebaseApp.Create(new AppOptions
 {
     Credential = GoogleCredential.FromFile("Secrets/firebase-adminsdk.json")
@@ -101,6 +106,16 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+// Thêm sau app.UseAuthentication()
+app.Use(async (context, next) =>
+{
+    if (context.User.Identity?.IsAuthenticated == true)
+    {
+        var claims = context.User.Claims.Select(c => $"{c.Type}: {c.Value}").ToList();
+        Console.WriteLine("Claims trong token: " + string.Join(", ", claims));
+    }
+    await next();
+});
 app.UseAuthorization();
 app.MapControllers();
 
