@@ -11,5 +11,8 @@ namespace AccountService.Service.Interfaces
     {
         Task<AuthLoginResponse> LoginAsync(string email, string password);
         Task<AuthLoginResponse> LoginAdminAsync(string email, string password);
+        Task<AuthRegisterResponse> RegisterAsync(string email, string password);
+        Task<OtpVerifyResponse> VerifyOtpAsync(string email, string otpCode);
+        Task<AuthLoginResponse> GoogleSignInAsync(string idToken);
     }
 }

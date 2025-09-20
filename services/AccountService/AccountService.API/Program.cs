@@ -67,6 +67,7 @@ builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<AdminRepository>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 FirebaseApp.Create(new AppOptions
 {
     Credential = GoogleCredential.FromFile("Secrets/firebase-adminsdk.json")

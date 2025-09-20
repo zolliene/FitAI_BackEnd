@@ -32,5 +32,10 @@ namespace AccountService.Repository
         {
             return await _users.Find(_ => true).ToListAsync();
         }
+
+        public async Task UpdateAsync(User user)
+        {
+            await _users.ReplaceOneAsync(u => u.Id == user.Id, user);
+        }
     }
 }

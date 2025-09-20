@@ -24,6 +24,13 @@ namespace AccountService.Repository.Models
         [BsonRepresentation(BsonType.String)]
         public Gender Gender { get; set; }
         public string Type { get; set; }
+        // OTP and verification fields
+        public string? OtpCode { get; set; }
+        public DateTime? OtpGeneratedAt { get; set; }
+        public bool IsEmailVerified { get; set; }
+        // Gmail sign-in support
+        public string? GoogleAccessToken { get; set; }
+        public string? GoogleRefreshToken { get; set; }
     }
 
     public enum Gender

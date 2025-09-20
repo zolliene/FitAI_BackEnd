@@ -31,7 +31,7 @@ namespace AccountService.API.Controllers
                         Email = user.Email,
                         Token = user.Token,
                     }, "Login successful"));
-            } 
+            }
             catch (Exception ex)
             {
                 return BadRequest(ApiResponse<string>.Fail(ex.Message));
@@ -44,6 +44,48 @@ namespace AccountService.API.Controllers
             {
                 AuthLoginResponse admin = await _service.LoginAdminAsync(request.email, request.password);
                 return Ok(ApiResponse<AuthLoginResponse>.Ok(admin, "Admin login successful"));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ApiResponse<string>.Fail(ex.Message));
+            }
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] AuthRegisterRequest request)
+        {
+            try
+            {
+                var result = await _service.RegisterAsync(request.Email, request.Password);
+                return Ok(ApiResponse<AuthRegisterResponse>.Ok(result, "Registration successful"));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ApiResponse<AuthRegisterResponse>.Fail(ex.Message));
+            }
+        }
+
+        [HttpPost("verify-otp")]
+        public async Task<IActionResult> VerifyOtp([FromBody] OtpVerifyRequest request)
+        {
+            try
+            {
+                var result = await _service.VerifyOtpAsync(request.Email, request.OtpCode);
+                return Ok(ApiResponse<OtpVerifyResponse>.Ok(result, "OTP verified successfully"));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ApiResponse<OtpVerifyResponse>.Fail(ex.Message));
+            }
+        }
+
+        [HttpPost("google-signin")]
+        public async Task<IActionResult> GoogleSignIn([FromBody] GoogleSignInRequest request)
+        {
+            try
+            {
+                var result = await _service.GoogleSignInAsync(request.IdToken);
+                return Ok(ApiResponse<AuthLoginResponse>.Ok(result, "Google sign-in successful"));
             }
             catch (Exception ex)
             {
