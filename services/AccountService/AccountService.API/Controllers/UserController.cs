@@ -17,25 +17,35 @@ namespace AccountService.API.Controllers
             _userService = userService;
         }
 
-        // Endpoint chỉ cho admin truy cập
+        // Admin-only endpoint with pagination, excludes admins
         [HttpGet]
-        [Authorize(Roles = "user")]
-        public async Task<IActionResult> GetAllUsers()
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> GetAllUsers([FromQuery] int page = 1, [FromQuery] int pageSize = 20)
         {
             try
             {
                 var users = await _userService.GetAllAsync();
-
-                var userDtos = users.Select(u => new UserDto
+                var filtered = users.Where(u => u.Type != "admin");
+                var total = filtered.Count();
+                var userDtos = filtered
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .Select(u => new UserDto
+                    {
+                        Id = u.Id,
+                        Email = u.Email,
+                        Username = u.Username,
+                        FirstName = u.FirstName,
+                        LastName = u.LastName
+                    }).ToList();
+                var result = new AccountService.Service.DTO.Common.PagedResult<UserDto>
                 {
-                    Id = u.Id,
-                    Email = u.Email,
-                    Username = u.Username,
-                    FirstName = u.FirstName,
-                    LastName = u.LastName
-                }).ToList();
-
-                return Ok(ApiResponse<List<UserDto>>.Ok(userDtos, "Users retrieved successfully"));
+                    Total = total,
+                    Page = page,
+                    PageSize = pageSize,
+                    Items = userDtos
+                };
+                return Ok(ApiResponse<AccountService.Service.DTO.Common.PagedResult<UserDto>>.Ok(result, "Users retrieved successfully"));
             }
             catch (Exception ex)
             {
